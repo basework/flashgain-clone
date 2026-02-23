@@ -56,6 +56,8 @@ export default function DashboardPage() {
   const [showReminderDialog, setShowReminderDialog] = useState(false)
   const [showClaimSuccess, setShowClaimSuccess] = useState(false)
   const [transactions, setTransactions] = useState<any[]>([])
+  const [showBrowserCheck, setShowBrowserCheck] = useState(false)
+  const [copiedLink, setCopiedLink] = useState(false)
 
   // Animate balance changes
   useEffect(() => {
@@ -267,6 +269,30 @@ export default function DashboardPage() {
     return `${hours}h ${minutes}m ${seconds}s`
   }
 
+  const detectBrowser = () => {
+    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+    if (/Chrome/.test(ua) && !/Edge|Edg/.test(ua)) return 'Chrome'
+    if (/Safari/.test(ua) && !/Chrome|CriOS|Chromium/.test(ua)) return 'Safari'
+    if (/Opera|OPR/.test(ua)) return 'Opera'
+    return 'Other'
+  }
+
+  const isSupportedBrowser = () => {
+    const browser = detectBrowser()
+    return ['Chrome', 'Safari', 'Opera'].includes(browser)
+  }
+
+  const copyLinkToClipboard = async () => {
+    const referralLink = `${typeof window !== 'undefined' ? window.location.origin : ''}/refer?ref=${userData?.userId || 'ref'}`
+    try {
+      await navigator.clipboard.writeText(referralLink)
+      setCopiedLink(true)
+      setTimeout(() => setCopiedLink(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy link:', err)
+    }
+  }
+
   const handleProfileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0]
     if (!file) return
@@ -312,6 +338,13 @@ export default function DashboardPage() {
     }
 
     const user = JSON.parse(storedUser)
+
+    // Check if browser check popup was already shown
+    const browserCheckShown = localStorage.getItem("tivexx-browser-check-shown")
+    if (!browserCheckShown) {
+      setShowBrowserCheck(true)
+      localStorage.setItem("tivexx-browser-check-shown", "true")
+    }
 
     const tutorialShown = localStorage.getItem("tivexx-tutorial-shown")
     if (!tutorialShown) {
@@ -475,6 +508,89 @@ export default function DashboardPage() {
       )}
 
       {showWithdrawalNotification && <WithdrawalNotification onClose={handleCloseWithdrawalNotification} />}
+
+      {/* Browser Check Popup */}
+      {showBrowserCheck && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+          <div className="hh-browser-check-popup">
+            <div className="hh-browser-check-header">
+              <div className="hh-browser-check-icon">
+                <Shield className="h-6 w-6 text-emerald-400" />
+              </div>
+              <h2 className="text-lg font-bold text-white">Secure Your Account</h2>
+            </div>
+
+            {!isSupportedBrowser() ? (
+              <>
+                <p className="text-sm text-gray-300 mb-4 text-center">
+                  ⚠️ You're using {detectBrowser()}. For the best security, please use Safari, Chrome, or Opera Mini.
+                </p>
+                <p className="text-xs text-gray-400 mb-6 text-center">
+                  Copy your secure link and save your login credentials to prevent access loss.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-sm text-gray-300 mb-2 text-center">
+                  ✓ {detectBrowser()} is secure
+                </p>
+                <p className="text-xs text-gray-400 mb-6 text-center">
+                  Save your login link and credentials for account recovery.
+                </p>
+              </>
+            )}
+
+            {/* Secure Link Display */}
+            <div className="hh-browser-check-link-container">
+              <p className="text-xs font-semibold text-emerald-400 mb-2 uppercase tracking-wider">Your Secure Link</p>
+              <div className="hh-browser-check-link-box">
+                <code className="text-xs text-white break-all">
+                  {typeof window !== 'undefined' ? `${window.location.origin}/refer?ref=${userData?.userId || 'ref'}` : 'Loading...'}
+                </code>
+              </div>
+              <button
+                onClick={copyLinkToClipboard}
+                className={`hh-browser-check-copy-btn ${copiedLink ? 'hh-browser-check-copy-copied' : ''}`}
+              >
+                {copiedLink ? (
+                  <>
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Copy Link
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="hh-browser-check-divider"></div>
+
+            <div className="space-y-2 mb-6">
+              <p className="text-xs font-semibold text-white uppercase tracking-wider">Save These Credentials:</p>
+              <p className="text-xs text-gray-400">
+                Email: <span className="text-emerald-300 font-mono">{userData?.email}</span>
+              </p>
+              <p className="text-xs text-gray-400">
+                User ID: <span className="text-emerald-300 font-mono">{userData?.userId}</span>
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowBrowserCheck(false)}
+              className="hh-browser-check-close-btn w-full"
+            >
+              I've Saved My Details
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* MAIN CONTENT */}
       <div className="max-w-md mx-auto px-4 space-y-4 pt-6 relative z-10">
@@ -1359,6 +1475,131 @@ export default function DashboardPage() {
         @keyframes hh-entry {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── BROWSER CHECK POPUP ─── */
+        .hh-browser-check-popup {
+          background: linear-gradient(135deg, #0d1f2d, #0a1628);
+          border: 1px solid rgba(16,185,129,0.2);
+          border-radius: 24px;
+          padding: 28px;
+          max-width: 380px;
+          width: 100%;
+          box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 30px rgba(16,185,129,0.1);
+          animation: hh-browser-check-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes hh-browser-check-appear {
+          from {
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .hh-browser-check-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+
+        .hh-browser-check-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05));
+          border: 1px solid rgba(16,185,129,0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 6px 20px rgba(16,185,129,0.15);
+        }
+
+        .hh-browser-check-link-container {
+          background: rgba(16,185,129,0.08);
+          border: 1px solid rgba(16,185,129,0.2);
+          border-radius: 14px;
+          padding: 16px;
+          margin-bottom: 20px;
+        }
+
+        .hh-browser-check-link-box {
+          background: rgba(0,0,0,0.3);
+          border: 1px solid rgba(16,185,129,0.15);
+          border-radius: 10px;
+          padding: 12px;
+          margin-bottom: 12px;
+          overflow-x: auto;
+          max-height: 80px;
+          overflow-y: auto;
+        }
+
+        .hh-browser-check-copy-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px;
+          background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(16,185,129,0.1));
+          border: 1px solid rgba(16,185,129,0.3);
+          border-radius: 10px;
+          color: #10b981;
+          font-weight: 600;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hh-browser-check-copy-btn:hover {
+          background: linear-gradient(135deg, rgba(16,185,129,0.4), rgba(16,185,129,0.15));
+          box-shadow: 0 0 20px rgba(16,185,129,0.3);
+          transform: translateY(-2px);
+        }
+
+        .hh-browser-check-copy-btn:active {
+          transform: scale(0.98);
+        }
+
+        .hh-browser-check-copy-copied {
+          background: linear-gradient(135deg, rgba(16,185,129,0.5), rgba(16,185,129,0.2));
+          color: #10b981;
+          box-shadow: 0 0 25px rgba(16,185,129,0.4);
+        }
+
+        .hh-browser-check-divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(16,185,129,0.2), transparent);
+          margin: 20px 0;
+        }
+
+        .hh-browser-check-close-btn {
+          background: linear-gradient(135deg, #10b981, #059669);
+          color: white;
+          font-weight: 700;
+          font-size: 15px;
+          border: none;
+          border-radius: 12px;
+          padding: 14px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 6px 20px rgba(16,185,129,0.3);
+        }
+
+        .hh-browser-check-close-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(16,185,129,0.5);
+        }
+
+        .hh-browser-check-close-btn:active {
+          transform: scale(0.98);
         }
 
         /* ─── REDUCED MOTION ─── */

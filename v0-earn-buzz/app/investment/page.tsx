@@ -47,7 +47,7 @@ export default function InvestmentPlatformPage() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [investmentAmount, setInvestmentAmount] = useState("10000");
-  const [selectedDuration, setSelectedDuration] = useState("12");
+  const [selectedDuration, setSelectedDuration] = useState("1");
   const [activeTab, setActiveTab] = useState("overview");
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
 
@@ -95,11 +95,11 @@ export default function InvestmentPlatformPage() {
       name: "Starter Portfolio",
       risk: "Conservative",
       riskLevel: "Low",
-      minDeposit: "₦5,000",
+      minDeposit: "₦14,231",
       maxDeposit: "₦50,000",
-      duration: "3 months",
-      projectedReturn: "200%",
-      annualizedReturn: "8-10%",
+      duration: "one week",
+      projectedReturn: "184.6%",
+      annualizedReturn: "9600%",
       color: "emerald",
       gradient: "from-emerald-500 to-emerald-600",
       lightGradient: "from-emerald-500/20 to-emerald-600/10",
@@ -124,9 +124,9 @@ export default function InvestmentPlatformPage() {
       riskLevel: "Medium",
       minDeposit: "₦50,000",
       maxDeposit: "₦250,000",
-      duration: "6 months",
-      projectedReturn: "200%",
-      annualizedReturn: "12-15%",
+      duration: "one week",
+      projectedReturn: "184.6%",
+      annualizedReturn: "9600%",
       color: "blue",
       gradient: "from-blue-500 to-blue-600",
       lightGradient: "from-blue-500/20 to-blue-600/10",
@@ -153,9 +153,9 @@ export default function InvestmentPlatformPage() {
       riskLevel: "High",
       minDeposit: "₦250,000",
       maxDeposit: "₦1,000,000+",
-      duration: "12 months",
-      projectedReturn: "200%",
-      annualizedReturn: "15-20%",
+      duration: "one week",
+      projectedReturn: "184.6%",
+      annualizedReturn: "9600%",
       color: "amber",
       gradient: "from-amber-500 to-amber-600",
       lightGradient: "from-amber-500/20 to-amber-600/10",
@@ -179,13 +179,12 @@ export default function InvestmentPlatformPage() {
 
   const calculateProjectedValue = () => {
     const amount = parseFloat(investmentAmount) || 10000;
-    const years = parseInt(selectedDuration) / 12;
-    const baseReturn = amount;
-    const growth = amount * 0.12 * years; // 12% annual return example
+    const weeklyReturn = 0.9600 / 52; // 9600% annual / 52 weeks ≈ 184.6% per week
+    const growth = amount * weeklyReturn;
     return {
       invested: amount,
       growth: Math.round(growth),
-      total: amount + Math.round(growth),
+      total: Math.round(amount + growth),
     };
   };
 
@@ -705,36 +704,58 @@ export default function InvestmentPlatformPage() {
                     onChange={(e) => setSelectedDuration(e.target.value)}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300"
                   >
-                    <option value="3">3 Months</option>
-                    <option value="6">6 Months</option>
-                    <option value="12">12 Months</option>
-                    <option value="24">24 Months</option>
-                    <option value="36">36 Months</option>
+                    <option value="1">One Week</option>
                   </select>
                 </div>
 
-                <div className="pt-4 border-t border-white/10">
-                  <div className="flex justify-between mb-2 group hover:translate-x-1 transition-transform">
-                    <span className="text-sm text-white/50">
-                      Initial Investment
-                    </span>
-                    <span className="font-bold text-white">
-                      ${projected.invested.toLocaleString()}
-                    </span>
+                <div className="pt-4 border-t border-white/10 space-y-4">
+                  <div>
+                    <p className="text-xs text-white/50 uppercase tracking-wider mb-3 font-semibold">Initial Investment</p>
+                    <p className="text-2xl font-bold text-white">
+                      ₦{parseInt(investmentAmount).toLocaleString('en-NG')}
+                    </p>
                   </div>
-                  <div className="flex justify-between mb-2 group hover:translate-x-1 transition-transform">
-                    <span className="text-sm text-white/50">
-                      Projected Growth
-                    </span>
-                    <span className="font-bold text-emerald-400">
-                      +${projected.growth.toLocaleString()}
-                    </span>
+
+                  {/* Weekly Returns */}
+                  <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-white/70">Weekly Return (184.6%)</span>
+                      <span className="text-xs text-emerald-300">7 days</span>
+                    </div>
+                    <p className="text-xl font-bold text-emerald-400">
+                      ₦{Math.round(parseInt(investmentAmount) * (1 + 1.846)).toLocaleString('en-NG')}
+                    </p>
+                    <p className="text-xs text-white/50 mt-1">
+                      +₦{Math.round(parseInt(investmentAmount) * 1.846).toLocaleString('en-NG')} profit
+                    </p>
                   </div>
-                  <div className="flex justify-between text-lg font-bold group hover:translate-x-1 transition-transform">
-                    <span className="text-white">Estimated Value</span>
-                    <span className="text-emerald-400 animate-pulse-subtle">
-                      ${projected.total.toLocaleString()}
-                    </span>
+
+                  {/* Monthly Returns */}
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-white/70">Monthly Return (800%)</span>
+                      <span className="text-xs text-blue-300">30 days</span>
+                    </div>
+                    <p className="text-xl font-bold text-blue-400">
+                      ₦{Math.round(parseInt(investmentAmount) * (1 + 8)).toLocaleString('en-NG')}
+                    </p>
+                    <p className="text-xs text-white/50 mt-1">
+                      +₦{Math.round(parseInt(investmentAmount) * 8).toLocaleString('en-NG')} profit
+                    </p>
+                  </div>
+
+                  {/* Yearly Returns */}
+                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-white/70">Yearly Return (9600%)</span>
+                      <span className="text-xs text-amber-300">365 days</span>
+                    </div>
+                    <p className="text-xl font-bold text-amber-400">
+                      ₦{Math.round(parseInt(investmentAmount) * (1 + 96)).toLocaleString('en-NG')}
+                    </p>
+                    <p className="text-xs text-white/50 mt-1">
+                      +₦{Math.round(parseInt(investmentAmount) * 96).toLocaleString('en-NG')} profit
+                    </p>
                   </div>
                 </div>
               </div>
@@ -787,14 +808,14 @@ export default function InvestmentPlatformPage() {
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2 group hover:translate-x-1 transition-transform">
                     <Calendar className="w-4 h-4 text-white/40" />
-                    <span className="text-sm text-white/60">
-                      Duration: {selectedDuration} months
+                    <span className="text-sm text-white/60\">
+                      Duration: One Week
                     </span>
                   </div>
                   <div className="flex items-center gap-2 group hover:translate-x-1 transition-transform">
                     <Target className="w-4 h-4 text-white/40" />
                     <span className="text-sm text-white/60">
-                      Target: 12% annual
+                      Target: 9600% annual
                     </span>
                   </div>
                 </div>

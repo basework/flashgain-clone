@@ -70,10 +70,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: insertError.message }, { status: 500 })
     }
 
-    // 5. Record referral. Processing/crediting of the referrer is handled
-    //    by database triggers which will only credit when the referred user's
-    //    balance meets the configured threshold (₦110,000). Insert the referral
-    //    row as a pending referral; triggers will mark it processed when eligible.
+    // 5. Record referral. The referrer is credited immediately when the
+    //    referral is created, regardless of the referred user's balance.
     if (referrerId) {
       await supabase.from("referrals").insert({
         referrer_id: referrerId,

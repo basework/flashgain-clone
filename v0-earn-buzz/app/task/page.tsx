@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import type { MouseEvent as ReactMouseEvent } from "react"
 import { ArrowLeft, CheckCircle2, Clock, Gift, Sparkles, TrendingUp, Home, Gamepad2, User, Award, Zap } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -418,9 +417,7 @@ export default function TaskPage() {
     return `${hours > 0 ? hours + "h " : ""}${minutes}m ${seconds}s`
   }
 
-  function cancelStart(event: ReactMouseEvent<HTMLButtonElement>): void {
-    throw new Error("Function not implemented.")
-  }
+
 
   return (
     <div className="hh-root min-h-screen pb-28 relative overflow-hidden">
@@ -434,19 +431,7 @@ export default function TaskPage() {
       {/* Mesh gradient overlay */}
       <div className="hh-mesh-overlay" aria-hidden="true"></div>
 
-      {/* Confirm modal shown before opening external ad links */}
-      {modalTask && (
-        <div className="hh-modal-backdrop" role="dialog" aria-modal="true">
-          <div className="hh-modal">
-            <h3 className="hh-modal-title">Please interact with the ad</h3>
-            <p className="hh-modal-desc">Before the task counts, make sure you interact with the ad for at least 10 seconds. Closing too early may invalidate the award.</p>
-            <div className="hh-modal-actions">
-              <button className="hh-modal-btn hh-modal-cancel" onClick={cancelStart}>Cancel</button>
-              <button className="hh-modal-btn hh-modal-continue" onClick={() => confirmStartTask(modalTask)}>Continue to Ad</button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* (modal removed) */}
 
       {/* Coin Rain Animation */}
       {showCoinRain && (

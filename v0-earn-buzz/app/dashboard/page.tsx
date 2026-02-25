@@ -930,6 +930,9 @@ export default function DashboardPage() {
           background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(5,13,20,0.9) 50%, rgba(59,130,246,0.1) 100%);
           border-color: rgba(16,185,129,0.2);
           box-shadow: 0 0 40px rgba(16,185,129,0.08), inset 0 0 40px rgba(0,0,0,0.3);
+          /* reduce height by 20% to make box shorter */
+          transform: scaleY(0.8);
+          transform-origin: top;
         }
 
         .hh-card-profile {

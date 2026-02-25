@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import type { MouseEvent as ReactMouseEvent } from "react"
 import { ArrowLeft, CheckCircle2, Clock, Gift, Sparkles, TrendingUp, Home, Gamepad2, User, Award, Zap } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -417,7 +418,7 @@ export default function TaskPage() {
     return `${hours > 0 ? hours + "h " : ""}${minutes}m ${seconds}s`
   }
 
-  function cancelStart(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  function cancelStart(event: ReactMouseEvent<HTMLButtonElement>): void {
     throw new Error("Function not implemented.")
   }
 

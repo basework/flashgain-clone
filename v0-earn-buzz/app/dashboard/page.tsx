@@ -931,7 +931,7 @@ export default function DashboardPage() {
           border-color: rgba(16,185,129,0.2);
           box-shadow: 0 0 40px rgba(16,185,129,0.08), inset 0 0 40px rgba(0,0,0,0.3);
           /* reduce height by 32% total (20% + 12%) to make box shorter */
-          transform: scaleY(0.68);
+          transform: scaleY(0.58);
           transform-origin: top;
         }
 

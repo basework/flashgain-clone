@@ -1,24 +1,32 @@
-"use client"
+"use client";
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState, Suspense } from "react"
-import { XCircle, ArrowRight, Home, Gamepad2, User, Shield, AlertTriangle } from "lucide-react"
-import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import {
+  XCircle,
+  ArrowRight,
+  Home,
+  Gamepad2,
+  User,
+  Shield,
+  AlertTriangle,
+} from "lucide-react";
+import Link from "next/link";
 
 function PayKeyConfirmationContent() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [showResult, setShowResult] = useState(false)
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowResult(true)
-    }, 3000) // Tivexx-style 3s loading
-    return () => clearTimeout(timer)
-  }, [])
+      setShowResult(true);
+    }, 3000); // Tivexx-style 3s loading
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!showResult) {
-    // Tivexx-style loading popup
+    // Tivexx-style loading popup with dynamic 3-wheel spinner
     return (
       <div className="hh-root min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Animated background bubbles */}
@@ -33,9 +41,9 @@ function PayKeyConfirmationContent() {
 
         <div className="hh-loading-container">
           <div className="hh-loading-spinner">
-            <div className="hh-spinner-ring"></div>
-            <div className="hh-spinner-ring hh-spinner-ring-2"></div>
-            <div className="hh-spinner-ring hh-spinner-ring-3"></div>
+            <div className="hh-spinner-ring hh-spinner-ring-outer"></div>
+            <div className="hh-spinner-ring hh-spinner-ring-middle"></div>
+            <div className="hh-spinner-ring hh-spinner-ring-inner"></div>
           </div>
           <h1 className="hh-loading-title">FlashGain 9ja</h1>
           <p className="hh-loading-text">Confirming your payment...</p>
@@ -419,44 +427,100 @@ function PayKeyConfirmationContent() {
 
         .hh-loading-spinner {
           position: relative;
-          width: 80px;
-          height: 80px;
-          margin: 0 auto 24px;
+          width: 100px;
+          height: 100px;
+          margin: 0 auto 32px;
         }
 
+        /* Dynamic 3-Wheel Spinner */
         .hh-spinner-ring {
           position: absolute;
-          width: 100%;
-          height: 100%;
           border-radius: 50%;
           border: 3px solid transparent;
+          box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .hh-spinner-ring-outer {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           border-top-color: #10b981;
-          animation: hh-spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+          border-right-color: #10b981;
+          animation: spin-outer 2.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
             infinite;
         }
 
-        .hh-spinner-ring-2 {
-          width: 70%;
-          height: 70%;
-          top: 15%;
-          left: 15%;
-          border-top-color: #fbbf24;
-          animation-duration: 2s;
-          animation-direction: reverse;
+        .hh-spinner-ring-middle {
+          top: 15px;
+          left: 15px;
+          width: 70px;
+          height: 70px;
+          border-bottom-color: #fbbf24;
+          border-left-color: #fbbf24;
+          animation: spin-middle 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95)
+            infinite;
         }
 
-        .hh-spinner-ring-3 {
-          width: 40%;
-          height: 40%;
-          top: 30%;
-          left: 30%;
+        .hh-spinner-ring-inner {
+          top: 30px;
+          left: 30px;
+          width: 40px;
+          height: 40px;
           border-top-color: #3b82f6;
-          animation-duration: 1.2s;
+          border-left-color: #3b82f6;
+          animation: spin-inner 2.6s cubic-bezier(0.445, 0.05, 0.55, 0.95)
+            infinite;
         }
 
-        @keyframes hh-spin {
-          to {
+        @keyframes spin-outer {
+          0% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(180deg);
+          }
+          50% {
             transform: rotate(360deg);
+          }
+          75% {
+            transform: rotate(180deg);
+          }
+          100% {
+            transform: rotate(0deg);
+          }
+        }
+
+        @keyframes spin-middle {
+          0% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-180deg);
+          }
+          50% {
+            transform: rotate(-360deg);
+          }
+          75% {
+            transform: rotate(-180deg);
+          }
+          100% {
+            transform: rotate(0deg);
+          }
+        }
+
+        @keyframes spin-inner {
+          0% {
+            transform: rotate(0deg);
+          }
+          33% {
+            transform: rotate(360deg);
+          }
+          66% {
+            transform: rotate(-360deg);
+          }
+          100% {
+            transform: rotate(0deg);
           }
         }
 
@@ -923,6 +987,9 @@ function PayKeyConfirmationContent() {
           .hh-live-dot-red,
           .hh-icon-large-error,
           .hh-telegram-icon,
+          .hh-spinner-ring-outer,
+          .hh-spinner-ring-middle,
+          .hh-spinner-ring-inner,
           [class*="hh-entry-"] {
             animation: none !important;
           }
@@ -949,9 +1016,9 @@ export default function PayKeyConfirmationPage() {
 
           <div className="hh-loading-container">
             <div className="hh-loading-spinner">
-              <div className="hh-spinner-ring"></div>
-              <div className="hh-spinner-ring hh-spinner-ring-2"></div>
-              <div className="hh-spinner-ring hh-spinner-ring-3"></div>
+              <div className="hh-spinner-ring hh-spinner-ring-outer"></div>
+              <div className="hh-spinner-ring hh-spinner-ring-middle"></div>
+              <div className="hh-spinner-ring hh-spinner-ring-inner"></div>
             </div>
             <h1 className="hh-loading-title">FlashGain 9ja</h1>
             <p className="hh-loading-text">Confirming your payment...</p>

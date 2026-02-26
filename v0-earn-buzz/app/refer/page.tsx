@@ -33,12 +33,12 @@ export default function ReferPage() {
     "Don't miss out! FlashGain 9ja gives you instant bonuses and daily earnings — sign up and start winning!",
     "FlashGain 9ja lets you earn money daily — invite friends and claim free rewards!",
     "Turn your phone into an ATM! Join FlashGain 9ja and get paid every day!",
-    "Earn ₦10,000 per referral and get instant signup bonuses — FlashGain 9ja is the real deal!",
+    "Earn ₦5,000 per referral and get instant signup bonuses — FlashGain 9ja is the real deal!",
     "Get rewarded for every invite! Join FlashGain 9ja and earn without stress!",
     "FlashGain 9ja pays you for completing simple tasks — join today and start earning!",
     "Make money online easily! FlashGain 9ja gives you instant bonuses and daily claims!",
     "Earn fast, withdraw easily! FlashGain 9ja is your ticket to daily income!",
-    "Invite friends, earn ₦10,000 each! Start your earning journey with FlashGain 9ja today!",
+    "Invite friends, earn ₦5,000 each! Start your earning journey with FlashGain 9ja today!",
     "Need cash fast? FlashGain 9ja gives you loans in just 5 minutes — no BVN required!",
     "Get instant loans without BVN! FlashGain 9ja makes borrowing stress-free!",
     "Need urgent money? FlashGain 9ja offers quick loans in minutes — sign up now!",
@@ -216,7 +216,7 @@ export default function ReferPage() {
             </div>
             <div className="hh-reward-badge">
               <Sparkles className="h-4 w-4 text-amber-300" />
-              <span>each ₦10k</span>
+              <span>each ₦5k</span>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ export default function ReferPage() {
                 <p className="text-xs text-gray-400 mb-1">Earn per referral</p>
                 <p className="text-3xl font-black text-white hh-fit-amount">
                   <span className="text-sm align-top opacity-80">₦</span>
-                  <span className="tracking-tight">10,000</span>
+                  <span className="tracking-tight">5,000</span>
                 </p>
               </div>
               <div className="text-right">
@@ -353,7 +353,7 @@ export default function ReferPage() {
             {[
               { icon: "🔗", title: "Share Your Link", desc: "Share your unique referral link with friends", color: "emerald" },
               { icon: "👥", title: "They Sign Up", desc: "Friends register using your referral code", color: "green" },
-              { icon: "💰", title: "Earn Rewards", desc: "Get ₦10,000 credited instantly per referral", color: "emerald" },
+              { icon: "💰", title: "Earn Rewards", desc: "Get ₦5,000 credited instantly per referral", color: "emerald" },
               { icon: "⭐", title: "Friends Complete Tasks", desc: "Referral is verified after they complete 2 tasks", color: "amber", highlight: true }
             ].map((step, idx) => (
               <div key={idx} className={`hh-step-item ${step.highlight ? 'hh-step-highlight' : ''}`} style={{ animationDelay: `${idx * 100 + 400}ms` }}>
@@ -434,7 +434,7 @@ export default function ReferPage() {
               <h4 className="font-bold text-white mb-1">Pro Tip</h4>
               <p className="text-sm text-emerald-200/80">
                 Share your link on social media and messaging platforms to maximize your earnings. 
-                Each successful referral earns you ₦10,000 instantly!
+                Each successful referral earns you ₦5,000 instantly!
               </p>
             </div>
           </div>

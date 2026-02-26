@@ -205,7 +205,7 @@ export default function AboutPage() {
                 </li>
                 <li className="hh-list-item">
                   <span className="hh-list-bullet"></span>
-                  Earn ₦10,000 per verified referral with no limits. Some users
+                  Earn ₦5,000 per verified referral with no limits. Some users
                   earn from 50 to 300 referrals.
                 </li>
                 <li className="hh-list-item">

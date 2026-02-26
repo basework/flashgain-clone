@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 // ✅ 100+ motivational and referral-only messages
 const messages = [
   "💰 Refer 5 friends and unlock unlimited earnings!",
-  "🎯 Every referral earns you ₦10,000 instantly!",
+  "🎯 Every referral earns you ₦5,000 instantly!",
   "🚀 Start earning today - it's completely free!",
   "⭐ Your success story starts with one referral!",
   "💎 Turn your network into income!",

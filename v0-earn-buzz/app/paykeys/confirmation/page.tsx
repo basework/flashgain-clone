@@ -445,8 +445,10 @@ function PayKeyConfirmationContent() {
           left: 0;
           width: 100%;
           height: 100%;
-          border-top-color: #10b981;
-          border-right-color: #10b981;
+          border-top: 3px solid #10b981;
+          border-right: 3px solid #10b981;
+          border-bottom: 3px solid transparent;
+          border-left: 3px solid transparent;
           animation: spin-outer 2.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)
             infinite;
         }
@@ -456,8 +458,10 @@ function PayKeyConfirmationContent() {
           left: 15px;
           width: 70px;
           height: 70px;
-          border-bottom-color: #fbbf24;
-          border-left-color: #fbbf24;
+          border-bottom: 3px solid #fbbf24;
+          border-left: 3px solid #fbbf24;
+          border-top: 3px solid transparent;
+          border-right: 3px solid transparent;
           animation: spin-middle 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95)
             infinite;
         }
@@ -467,8 +471,10 @@ function PayKeyConfirmationContent() {
           left: 30px;
           width: 40px;
           height: 40px;
-          border-top-color: #3b82f6;
-          border-left-color: #3b82f6;
+          border-top: 3px solid #3b82f6;
+          border-left: 3px solid #3b82f6;
+          border-bottom: 3px solid transparent;
+          border-right: 3px solid transparent;
           animation: spin-inner 2.6s cubic-bezier(0.445, 0.05, 0.55, 0.95)
             infinite;
         }

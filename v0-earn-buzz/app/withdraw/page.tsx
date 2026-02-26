@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Share2, AlertTriangle, Home, Gamepad2, User, Wallet, Gift, Users, TrendingUp, Award, Clock } from "lucide-react"
+import { ArrowLeft, Share2, AlertTriangle, Home, Gamepad2, User, Wallet, Gift, TrendingUp, Award, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function WithdrawPage() {
@@ -250,48 +250,6 @@ export default function WithdrawPage() {
                   <div className="flex items-center justify-between mt-1">
                     <span className="text-xs text-gray-500">Current</span>
                     <span className="text-xs font-mono text-white">{formatCurrency(balance)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {!toggleActive && (
-            <div className="hh-req-item">
-              <div className="flex items-center gap-3">
-                <div className={`hh-req-icon ${referralCount >= 5 ? 'hh-req-met' : 'hh-req-pending'}`}>
-                  <Users className="h-4 w-4" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-white">Active referrals</span>
-                    <span className={`text-sm font-bold ${referralCount >= 5 ? 'text-emerald-400' : 'text-amber-400'}`}>
-                      5 required
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-1">
-                    <span className="text-xs text-gray-500">Current</span>
-                    <span className="text-xs font-mono text-white">{referralCount}/5</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            )}
-
-            <div className="hh-req-item">
-              <div className="flex items-center gap-3">
-                <div className={`hh-req-icon ${completedTasksCount >= TOTAL_DAILY_TASKS ? 'hh-req-met' : 'hh-req-pending'}`}>
-                  <Gift className="h-4 w-4" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-white">Daily tasks</span>
-                    <span className={`text-sm font-bold ${completedTasksCount >= TOTAL_DAILY_TASKS ? 'text-emerald-400' : 'text-amber-400'}`}>
-                      {TOTAL_DAILY_TASKS} required
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-1">
-                    <span className="text-xs text-gray-500">Completed</span>
-                    <span className="text-xs font-mono text-white">{completedTasksCount}/{TOTAL_DAILY_TASKS}</span>
                   </div>
                 </div>
               </div>

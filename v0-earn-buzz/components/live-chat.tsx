@@ -253,7 +253,7 @@ export function LiveChat({ onClose }: LiveChatProps) {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Type 1, 2, 3, 4, or 5..."
-              className="flex-1 border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+              className="flex-1 border-gray-300 focus:border-orange-500 focus:ring-orange-500 text-black"
               disabled={isLoading}
             />
             <Button 

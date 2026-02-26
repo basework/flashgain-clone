@@ -30,10 +30,11 @@ const REPLIES = {
     text: "Click on the refer and earn button on the site and follow the instructions carefully",
     image: ["/chatbot-img/image5.png", "/chatbot-img/image05.png"],
     has_image: true,
+    has_multiple_images: true,
   },
   "5": {
     text: "The verification fee is due process to ensure identity documentation and to confirm you're not a Bot programmed to accumulate cash automatically.\n\nIn accordance with the CBN regulations, we have to verify a tax withholding payment from users \nhttps://t.me/flashgain9janews/57",
-    images: ["/chatbot-img/image50.png",],
+    images: ["/chatbot-img/image50.png"],
     has_image: true,
     has_multiple_images: true,
   },

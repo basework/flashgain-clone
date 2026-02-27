@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Share2, AlertTriangle, Home, Gamepad2, User, Wallet, Gift, TrendingUp, Award, Clock } from "lucide-react"
+import { ArrowLeft, Share2, AlertTriangle, Home, Gamepad2, User, Users, Wallet, Gift, TrendingUp, Award, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function WithdrawPage() {
@@ -260,21 +260,23 @@ export default function WithdrawPage() {
         {/* Progress Section */}
         <div className="hh-card hh-entry-4">
           <div className="space-y-4">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-emerald-400" />
-                  <span className="text-sm font-medium text-white">Referral Progress</span>
+                {!toggleActive && (
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-emerald-400" />
+                    <span className="text-sm font-medium text-white">Referral Progress</span>
+                  </div>
+                  <span className="text-sm font-bold text-amber-300">{referralCount}/5</span>
                 </div>
-                <span className="text-sm font-bold text-amber-300">{referralCount}/5</span>
+                <div className="hh-progress-track">
+                  <div 
+                    className="hh-progress-fill" 
+                    style={{ width: progressWidth }}
+                  />
+                </div>
               </div>
-              <div className="hh-progress-track">
-                <div 
-                  className="hh-progress-fill" 
-                  style={{ width: progressWidth }}
-                />
-              </div>
-            </div>
+            )}
 
             <div>
               <div className="flex items-center justify-between mb-2">

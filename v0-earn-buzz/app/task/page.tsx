@@ -97,7 +97,7 @@ const AVAILABLE_TASKS: Task[] = [
     description: "Tap our premium ad link for extra rewards",
     category: "Social Media",
     reward: 5000,
-    link: "https://t.me/helpinghtask2",
+    link: "https://creditbuzz.online",
     icon: "🎁",
   },
 
@@ -107,7 +107,7 @@ const AVAILABLE_TASKS: Task[] = [
     description: "Tap our premium ad link for extra rewards",
     category: "Social Media",
     reward: 5000,
-    link: "https://t.me/opaydotmoney",
+    link: "https://creditbuzz.online",
     icon: "🌐",
   },
 ];

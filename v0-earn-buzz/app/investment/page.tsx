@@ -98,7 +98,6 @@ export default function InvestmentPlatformPage() {
       risk: "Conservative",
       riskLevel: "Low",
       minDeposit: "₦50,000",
-      oneWeekReturn: "₦200,000", // daily total (4x)
       maxDeposit: "₦50,000",
       duration: "one day",
       projectedReturn: "400%",
@@ -127,7 +126,6 @@ export default function InvestmentPlatformPage() {
       riskLevel: "Medium",
       minDeposit: "₦100,000",
       maxDeposit: "₦250,000",
-      oneWeekReturn: "₦200,000", // daily total (4x)
       duration: "one day",
       projectedReturn: "400%",
       annualizedReturn: "~2800% weekly",
@@ -157,7 +155,6 @@ export default function InvestmentPlatformPage() {
       riskLevel: "High",
       minDeposit: "₦150,000",
       maxDeposit: "₦1,000,000+",
-      oneWeekReturn: "₦200,000", // daily total (4x)
       duration: "one day",
       projectedReturn: "400%",
       annualizedReturn: "~2800% weekly",
@@ -182,16 +179,21 @@ export default function InvestmentPlatformPage() {
     },
   ];
 
+  // helpers used by both the card list and the calculator
+  const parseCurrency = (str: string) =>
+    parseFloat(str.replace(/[^0-9.-]+/g, "")) || 0;
+  const formatCurrency = (n: number) => `₦${n.toLocaleString()}`;
+
   const calculateProjectedValue = () => {
     const amount = parseFloat(investmentAmount) || 50000;
-    // 4x return in 24 hours (profit = 3x). weekly assumed as 7 days
-    const dailyGrowthRate = 3; // growth factor (profit multiplier)
-    const weeklyGrowthRate = dailyGrowthRate * 7;
-    const growth = amount * dailyGrowthRate;
+    // 4x return in 12 hours (profit = 3x) and two periods per day
+    const twelveHourGrowthRate = 3; // growth factor (profit multiplier)
+    const weeklyGrowthRate = twelveHourGrowthRate * 14; // 14 half‑days
+    const growth = amount * twelveHourGrowthRate;
     return {
       invested: amount,
       growth: Math.round(growth),
-      total: Math.round(amount * (1 + dailyGrowthRate)),
+      total: Math.round(amount * (1 + twelveHourGrowthRate)),
       weeklyTotal: Math.round(amount * (1 + weeklyGrowthRate)),
       weeklyGrowth: Math.round(amount * weeklyGrowthRate),
     };
@@ -378,14 +380,12 @@ export default function InvestmentPlatformPage() {
                         {plan.minDeposit}
                       </span>
                     </div>
-                    {plan.oneWeekReturn && (
-                      <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
-                        <span className="text-white/50">Returns (1 day)</span>
-                        <span className="font-bold text-emerald-400">
-                          {plan.oneWeekReturn}
-                        </span>
-                      </div>
-                    )}
+                    <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
+                      <span className="text-white/50">Returns (12 hrs)</span>
+                      <span className="font-bold text-emerald-400">
+                        {formatCurrency(parseCurrency(plan.minDeposit) * 4)}
+                      </span>
+                    </div>
                     <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                       <span className="text-white/50">Duration</span>
                       <span className="font-bold text-white">
@@ -737,13 +737,13 @@ export default function InvestmentPlatformPage() {
                     </p>
                   </div>
 
-                  {/* Monthly Returns */}
+                  {/* 12‑hour Returns */}
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-sm text-white/70">
-                        Daily Return (4×)
+                        12‑Hour Return (4×)
                       </span>
-                      <span className="text-xs text-blue-300">1 day</span>
+                      <span className="text-xs text-blue-300">12 hrs</span>
                     </div>
                     <p className="text-xl font-bold text-blue-400">
                       ₦

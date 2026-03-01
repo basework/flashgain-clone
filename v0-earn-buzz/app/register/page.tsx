@@ -102,7 +102,7 @@ export default function RegisterPage() {
         id: data.user.id,
         name: data.user.name,
         email: data.user.email,
-        balance: 50000, // Changed signup bonus to ₦20,000
+        balance: 20000, // Changed signup bonus to ₦20,000
         userId: data.user.referral_code,
         hasMomoNumber: false,
         level: "Basic",

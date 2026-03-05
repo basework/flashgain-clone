@@ -290,20 +290,6 @@ export default function DashboardPage() {
     return `${hours}h ${minutes}m ${seconds}s`
   }
 
-  const detectBrowser = () => {
-    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
-    if (/Chrome/.test(ua) && !/Edge|Edg/.test(ua)) return 'Chrome'
-    if (/Safari/.test(ua) && !/Chrome|CriOS|Chromium/.test(ua)) return 'Safari'
-    if (/Opera|OPR/.test(ua)) return 'Opera'
-    if (/Firefox/.test(ua)) return 'Firefox'
-    return 'An Unsupported Browser'
-  }
-
-  const isSupportedBrowser = () => {
-    const browser = detectBrowser()
-    return ['Chrome', 'Safari', 'Opera', 'Firefox'].includes(browser)
-  }
-
   const copyLinkToClipboard = async () => {
     const referralLink = `${typeof window !== 'undefined' ? window.location.origin : ''}/refer?ref=${userData?.userId || 'ref'}`
     try {
@@ -560,46 +546,30 @@ export default function DashboardPage() {
               <h2 className="text-lg font-bold text-white">Secure Your Account</h2>
             </div>
 
-            {!isSupportedBrowser() ? (
-              <>
-                <p className="text-sm text-gray-300 mb-4 text-center">
-                  ⚠️ Browser Not Recommended
-                </p>
-                <p className="text-xs text-gray-400 mb-4 text-center leading-relaxed">
-                  You're currently using <strong className="text-gray-200">{detectBrowser()}</strong>. For optimal security and compatibility, please use one of these supported browsers:
-                </p>
-                <div className="flex justify-center gap-4 mb-6 flex-wrap">
-                  <div className="flex flex-col items-center gap-1">
-                    <Chrome className="h-8 w-8 text-blue-400" />
-                    <span className="text-xs text-gray-300">Chrome</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <Firefox className="h-8 w-8 text-orange-400" />
-                    <span className="text-xs text-gray-300">Firefox</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <Safari className="h-8 w-8 text-blue-300" />
-                    <span className="text-xs text-gray-300">Safari</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="h-8 w-8 flex items-center justify-center text-red-400 font-bold text-lg">O</span>
-                    <span className="text-xs text-gray-300">Opera</span>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400 text-center leading-relaxed">
-                  Copy your secure link below and paste it in a supported browser, then log in with your credentials to ensure you don't lose access to your account.
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="text-sm text-gray-300 mb-2 text-center">
-                  ✓ {detectBrowser()} is Secure
-                </p>
-                <p className="text-xs text-gray-400 mb-6 text-center">
-                  Save your secure login link and credentials for account recovery.
-                </p>
-              </>
-            )}
+            <p className="text-sm text-gray-300 mb-4 text-center">
+              ⚠️ Use a Supported Browser
+            </p>
+            <div className="flex justify-center gap-4 mb-6 flex-wrap">
+              <div className="flex flex-col items-center gap-1">
+                <Chrome className="h-8 w-8 text-blue-400" />
+                <span className="text-xs text-gray-300">Chrome</span>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <Firefox className="h-8 w-8 text-orange-400" />
+                <span className="text-xs text-gray-300">Firefox</span>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <Safari className="h-8 w-8 text-blue-300" />
+                <span className="text-xs text-gray-300">Safari</span>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <span className="h-8 w-8 flex items-center justify-center text-red-400 font-bold text-lg">O</span>
+                <span className="text-xs text-gray-300">Opera</span>
+              </div>
+            </div>
+            <p className="text-xs text-gray-400 mb-6 text-center leading-relaxed">
+              If you are not using one of the supported browsers, copy your link below and login with your credentials so you don't lose access to your account.
+            </p>
 
             {/* Secure Link Display */}
             <div className="hh-browser-check-link-container">

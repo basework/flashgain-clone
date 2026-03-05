@@ -484,7 +484,7 @@ export default function InvestmentPlatformPage() {
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-purple-500 rounded-full animate-width-slow"></span>
             </h2>
             <p className="text-xl text-white/70">
-              Own shares in world-leading companies at ₦15,000 per share
+              Own shares in world-leading companies at ₦50,000 per share
             </p>
           </div>
 
@@ -507,7 +507,7 @@ export default function InvestmentPlatformPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Share Price</span>
-                  <span className="font-bold text-purple-400">₦15,000</span>
+                  <span className="font-bold text-purple-400">₦50,000</span>
                 </div>
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Dividend Yield</span>
@@ -527,7 +527,7 @@ export default function InvestmentPlatformPage() {
 
               <button
                 onClick={() =>
-                  router.push(`/investment/payment?amount=15000&plan=tesla`)
+                  router.push(`/investment/payment?amount=50000&plan=tesla`)
                 }
                 className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
@@ -555,7 +555,7 @@ export default function InvestmentPlatformPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Share Price</span>
-                  <span className="font-bold text-red-400">₦15,000</span>
+                  <span className="font-bold text-red-400">₦50,000</span>
                 </div>
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Dividend Yield</span>
@@ -573,7 +573,7 @@ export default function InvestmentPlatformPage() {
 
               <button
                 onClick={() =>
-                  router.push(`/investment/payment?amount=15000&plan=dangote`)
+                  router.push(`/investment/payment?amount=100000&plan=dangote`)
                 }
                 className="w-full py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
@@ -599,7 +599,7 @@ export default function InvestmentPlatformPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Share Price</span>
-                  <span className="font-bold text-gray-300">₦15,000</span>
+                  <span className="font-bold text-gray-300">₦50,000</span>
                 </div>
                 <div className="flex justify-between text-sm group hover:translate-x-1 transition-transform">
                   <span className="text-white/50">Dividend Yield</span>
@@ -617,7 +617,7 @@ export default function InvestmentPlatformPage() {
 
               <button
                 onClick={() =>
-                  router.push(`/investment/payment?amount=15000&plan=apple`)
+                  router.push(`/investment/payment?amount=150000&plan=apple`)
                 }
                 className="w-full py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >

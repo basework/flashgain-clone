@@ -5,6 +5,7 @@
 /* Tivexx palette variables */
 
 *{
+  width: 100% !important;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 :root {

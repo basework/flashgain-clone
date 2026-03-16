@@ -63,6 +63,15 @@ function CongratulationsContent() {
     .format(balance)
     .replace("NGN", "₦")
 
+  const resolvedName = recipientName || username
+  const firstName = resolvedName.trim().split(/\s+/).filter(Boolean)[0] || "User"
+  const maskedRecipientName = `${firstName} ***`
+
+  const digitsOnlyAccount = account.replace(/\D/g, "")
+  const maskedAccount = digitsOnlyAccount.length >= 2
+    ? `${digitsOnlyAccount.slice(0, 2)}***`
+    : "***"
+
   const ref = `FG${Date.now().toString().slice(-8).toUpperCase()}`
 
   if (phase === "loading") {
@@ -176,14 +185,14 @@ function CongratulationsContent() {
             <span className="cg-detail-label">
               <Banknote className="h-3.5 w-3.5" /> Account
             </span>
-            <span className="cg-detail-val font-mono">{account || "—"}</span>
+            <span className="cg-detail-val font-mono">{maskedAccount}</span>
           </div>
           <div className="cg-divider" />
           <div className="cg-detail-row">
             <span className="cg-detail-label">
               <User className="h-3.5 w-3.5" /> Name
             </span>
-            <span className="cg-detail-val">{recipientName || username}</span>
+            <span className="cg-detail-val">{maskedRecipientName}</span>
           </div>
           <div className="cg-divider" />
           <div className="cg-detail-row">

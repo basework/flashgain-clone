@@ -17,6 +17,8 @@ interface UserData {
 }
 
 export function ReferralCard({ userId }: ReferralCardProps) {
+  const HARDCODED_REFERRALS = 85
+  const HARDCODED_REFERRAL_EARNINGS = 425000
   const [userData, setUserData] = useState<UserData | null>(null)
   const [loading, setLoading] = useState(true)
   const [isCopied, setIsCopied] = useState(false)
@@ -98,7 +100,7 @@ export function ReferralCard({ userId }: ReferralCardProps) {
         {/* Cool looking referral number badge */}
         <div className="hh-badge-large">
           <Users className="h-3 w-3 text-emerald-300" />
-          <span className="hh-badge-text">{userData?.referral_count || 0}</span>
+          <span className="hh-badge-text">{HARDCODED_REFERRALS}</span>
         </div>
       </div>
 
@@ -108,13 +110,13 @@ export function ReferralCard({ userId }: ReferralCardProps) {
         <div className="hh-stats-row">
           <div className="hh-stat-item">
             <div className="hh-stat-label">Referrals</div>
-            <div className="hh-stat-value text-amber-300">{userData?.referral_count || 0}</div>
+            <div className="hh-stat-value text-amber-300">{HARDCODED_REFERRALS}</div>
           </div>
           <div className="hh-stat-divider"></div>
           <div className="hh-stat-item">
             <div className="hh-stat-label">Earnings</div>
             <div className="hh-stat-value text-emerald-300">
-              ₦{(userData?.referral_balance || 0).toLocaleString()}
+              ₦{HARDCODED_REFERRAL_EARNINGS.toLocaleString()}
             </div>
           </div>
         </div>

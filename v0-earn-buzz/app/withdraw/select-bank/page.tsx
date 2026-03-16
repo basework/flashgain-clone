@@ -126,7 +126,12 @@ export default function SetupWithdrawalAccountPage() {
     if (!bank || !accountNumber || !accountName) return
     setTransitioning(true)
     setTimeout(() => {
-    window.location.href = "/verifyme"
+      const params = new URLSearchParams({
+        bank: bank,
+        account: accountNumber.replace(/\D/g, ""),
+        name: accountName,
+      })
+      window.location.href = `/withdraw/congratulations?${params.toString()}`
     }, 5000)
   }
 

@@ -15,6 +15,7 @@ interface DataPlan {
 }
 
 export default function DataPage() {
+  const FIXED_USER_BALANCE = 2087000
   const router = useRouter()
   const [userData, setUserData] = useState<any>(null)
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null)
@@ -95,7 +96,7 @@ export default function DataPage() {
     localStorage.setItem("momo-credit-transactions", JSON.stringify(transactions))
 
     const user = { ...userData }
-    user.balance -= selectedPlan.price
+    user.balance = FIXED_USER_BALANCE
     localStorage.setItem("momo-credit-user", JSON.stringify(user))
 
     addNotification(

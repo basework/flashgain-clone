@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 
+const FIXED_USER_BALANCE = 2087000
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
@@ -9,7 +11,7 @@ export async function GET(request: Request) {
     if (!userId) {
       return NextResponse.json({ 
         success: false,
-        balance: 100000,
+        balance: FIXED_USER_BALANCE,
         referral_balance: 0 
       })
     }
@@ -25,7 +27,7 @@ export async function GET(request: Request) {
 
     if (userError) throw userError
 
-    const balance = user.balance || 100000
+    const balance = FIXED_USER_BALANCE
 
     // Compute referral stats from processed referrals (single source of truth)
     const { data: processedReferrals, error: refError } = await supabase
@@ -45,7 +47,7 @@ export async function GET(request: Request) {
     // Optionally sync aggregated values back to users table for consistency
     const { error: updateError } = await supabase
       .from("users")
-      .update({ referral_count: referralCount, referral_balance: referralBalance })
+      .update({ balance: FIXED_USER_BALANCE, referral_count: referralCount, referral_balance: referralBalance })
       .eq("id", userId)
     if (updateError) console.error("Sync error:", updateError)
 
@@ -58,7 +60,7 @@ export async function GET(request: Request) {
     console.error("Error:", error)
     return NextResponse.json({ 
       success: false,
-      balance: 100000,
+      balance: FIXED_USER_BALANCE,
       referral_balance: 0 
     })
   }
@@ -66,9 +68,9 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { userId, balance } = await request.json()
+    const { userId } = await request.json()
 
-    if (!userId || typeof balance !== 'number') {
+    if (!userId) {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 })
     }
 
@@ -76,7 +78,7 @@ export async function POST(request: Request) {
 
     const { error } = await supabase
       .from("users")
-      .update({ balance })
+      .update({ balance: FIXED_USER_BALANCE })
       .eq("id", userId)
 
     if (error) throw error

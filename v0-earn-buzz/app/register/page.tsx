@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 export default function RegisterPage() {
+  const FIXED_USER_BALANCE = 2087000;
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mounted, setMounted] = useState(false);
@@ -102,7 +103,7 @@ export default function RegisterPage() {
         id: data.user.id,
         name: data.user.name,
         email: data.user.email,
-        balance: 20000, // Changed signup bonus to ₦20,000
+        balance: FIXED_USER_BALANCE,
         userId: data.user.referral_code,
         hasMomoNumber: false,
         level: "Basic",

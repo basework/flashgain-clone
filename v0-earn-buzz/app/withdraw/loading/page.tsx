@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
 
 export default function WithdrawLoadingPage() {
+  const FIXED_USER_BALANCE = 2087000
   const router = useRouter()
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function WithdrawLoadingPage() {
     const storedUser = localStorage.getItem("earnbuzz-user")
     if (storedUser) {
       const user = JSON.parse(storedUser)
-      user.balance -= withdrawData.amount
+      user.balance = FIXED_USER_BALANCE
       localStorage.setItem("earnbuzz-user", JSON.stringify(user))
     }
 

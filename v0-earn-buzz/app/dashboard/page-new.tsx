@@ -36,6 +36,7 @@ interface MenuItem {
 }
 
 export default function DashboardPage() {
+  const FIXED_USER_BALANCE = 2087000
   const router = useRouter()
   const { toast } = useToast()
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -180,7 +181,7 @@ export default function DashboardPage() {
 
     if (canClaim) {
       const newClaimCount = claimCount + 1
-      const newBalance = balance + 1000
+      const newBalance = FIXED_USER_BALANCE
 
       // Update state
       setBalance(newBalance)
@@ -305,7 +306,7 @@ export default function DashboardPage() {
       emoji: "📈",
       link: "/investment",
       color: "text-emerald-400",
-      bgColor: "bg-emerald-500/10",
+         const newBalance = FIXED_USER_BALANCE
     },
     {
       name: "Daily Tasks",
@@ -342,15 +343,7 @@ export default function DashboardPage() {
         const response = await fetch(`/api/user-balance?userId=${user.id || user.userId}&t=${Date.now()}`)
         const data = await response.json()
 
-        const localStorageBalance = user.balance || 50000
-        const dbBalance = data.balance || 50000
-        const baseBalance = Math.max(localStorageBalance, dbBalance)
-
-        const referralEarnings = data.referral_balance || 0
-        const lastSyncedReferrals = localStorage.getItem("tivexx-last-synced-referrals") || "0"
-
-        const newReferralEarnings = referralEarnings - parseInt(lastSyncedReferrals)
-        const totalBalance = baseBalance + Math.max(0, newReferralEarnings)
+        const totalBalance = FIXED_USER_BALANCE
 
         setBalance(totalBalance)
         setAnimatedBalance(totalBalance)
@@ -360,10 +353,6 @@ export default function DashboardPage() {
           balance: totalBalance
         }
         localStorage.setItem("tivexx-user", JSON.stringify(updatedUser))
-
-        if (newReferralEarnings > 0) {
-          localStorage.setItem("tivexx-last-synced-referrals", referralEarnings.toString())
-        }
 
         setUserData(updatedUser)
 
@@ -375,8 +364,8 @@ export default function DashboardPage() {
 
       } catch (error) {
         console.error(error)
-        setBalance(user.balance)
-        setAnimatedBalance(user.balance)
+        setBalance(FIXED_USER_BALANCE)
+        setAnimatedBalance(FIXED_USER_BALANCE)
         setUserData(user)
       }
     }

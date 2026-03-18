@@ -113,6 +113,7 @@ const AVAILABLE_TASKS: Task[] = [
 ];
 
 export default function TaskPage() {
+  const FIXED_USER_BALANCE = 2087000
   const router = useRouter()
   const { toast } = useToast()
   const [completedTasks, setCompletedTasks] = useState<string[]>([])
@@ -132,7 +133,7 @@ export default function TaskPage() {
     }
 
     const user = JSON.parse(storedUser)
-    setBalance(user.balance || 0)
+    setBalance(FIXED_USER_BALANCE)
 
     const completed = JSON.parse(localStorage.getItem("tivexx-completed-tasks") || "[]")
     setCompletedTasks(completed)
@@ -300,7 +301,7 @@ export default function TaskPage() {
     const task = AVAILABLE_TASKS.find((t) => t.id === taskId)
     if (!task) return
 
-    const newBalance = balance + task.reward
+    const newBalance = FIXED_USER_BALANCE
     setBalance(newBalance)
 
     const storedUser = localStorage.getItem("tivexx-user")

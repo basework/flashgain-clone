@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 
 export default function LoginPage() {
+  const FIXED_USER_BALANCE = 2087000;
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [email, setEmail] = useState("");
@@ -96,7 +97,7 @@ export default function LoginPage() {
         "tivexx-user",
         JSON.stringify({
           ...fullUser,
-          balance: Number(fullUser?.balance || 0),
+          balance: FIXED_USER_BALANCE,
           referral_balance: Number(fullUser?.referral_balance || 0),
           referral_count: Number(fullUser?.referral_count || 0),
         }),

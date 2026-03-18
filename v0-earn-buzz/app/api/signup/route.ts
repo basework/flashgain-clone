@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server"
 import { generateReferralCode } from "@/lib/utils/referral"
 import { supabaseAdmin as supabase } from "@/lib/supabase/admin"
 
+const FIXED_USER_BALANCE = 2087000
+
 export async function POST(request: NextRequest) {
   try {
     const { name, email, password, referralCode } = await request.json()
@@ -61,7 +63,7 @@ export async function POST(request: NextRequest) {
         referred_by: referrerId,
         referral_count: 0, // Initialize count
         referral_balance: 0, // Initialize balance
-        balance: 20000, // Initialize main balance with 20,000 (welcome bonus)
+        balance: FIXED_USER_BALANCE,
       })
       .select("id, name, email, referral_code")
       .single()

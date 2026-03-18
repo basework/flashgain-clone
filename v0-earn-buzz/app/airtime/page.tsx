@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { PaykeyError } from "@/components/paykey-error"
 
 export default function AirtimePage() {
+  const FIXED_USER_BALANCE = 2087000
   const router = useRouter()
   const [userData, setUserData] = useState<any>(null)
   const [selectedNetwork, setSelectedNetwork] = useState<string | null>(null)
@@ -86,7 +87,7 @@ export default function AirtimePage() {
     localStorage.setItem("momo-credit-transactions", JSON.stringify(transactions))
 
     const user = { ...userData }
-    user.balance -= selectedAmount
+    user.balance = FIXED_USER_BALANCE
     localStorage.setItem("momo-credit-user", JSON.stringify(user))
 
     addNotification(

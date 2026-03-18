@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 
 export default function WithdrawPage() {
   const router = useRouter()
+  const FIXED_USER_BALANCE = 2087000
   const REQUIRED_REFERRALS = 5
   const FORCED_REFERRAL_PROGRESS = 85
   const TOTAL_DAILY_TASKS = 10
@@ -35,7 +36,7 @@ export default function WithdrawPage() {
 
     const user = JSON.parse(storedUser)
     setUserData(user)
-    setBalance(user.balance || 0)
+    setBalance(FIXED_USER_BALANCE)
 
     // Check if a new day has started and reset tasks if needed
     const lastResetDate = localStorage.getItem("tivexx-last-reset-date")
